@@ -1,0 +1,127 @@
+##
+## @package TYPO3
+## @subpackage tx_jhdirectmailplaintext
+##
+
+includeLibs.tx_jhdirectmailplaintext_pi1 = EXT:jh_directmail_plaintext/pi1/class.tx_jhdirectmailplaintext_pi1.php
+
+plugin.tx_jhdirectmailplaintext_pi1 = USER
+plugin.tx_jhdirectmailplaintext_pi1 {
+	userFunc = tx_jhdirectmailplaintext_pi1->main
+	
+	siteUrl = {$plugin.tx_jhdirectmailplaintext_pi1.siteUrl}
+	flowedFormat = {$plugin.tx_jhdirectmailplaintext_pi1.flowedFormat}
+	disableCTypeRendering = {$plugin.tx_jhdirectmailplaintext_pi1.disableCTypeRendering}
+	disableImageRendering = {$plugin.tx_jhdirectmailplaintext_pi1.disableImageRendering}
+	
+	header.defaultType = 1
+	header.date = D-m-Y
+	header.datePrefix = | ###HEADER_DATE_PREFIX### |
+	header.linkPrefix = | ###HEADER_LINK_PREFIX### |
+	header.1.preLineLen = 76
+	header.1.postLineLen = 76
+	header.1.preBlanks=1
+	header.1.stdWrap.case = upper
+	
+	header.2 < .header.1
+	header.2.preLineChar=*
+	header.2.postLineChar=*
+	
+	header.3.preBlanks=2
+	header.3.postBlanks=1
+	header.3.stdWrap.case = upper
+	
+	header.4 < .header.1
+	header.4.preLineChar= =
+	header.4.postLineChar= =
+	header.4.preLineBlanks= 1
+	header.4.postLineBlanks= 1
+	
+	header.5.removeSplitChar = {$plugin.tx_jhdirectmailplaintext_pi1.removeSplitChar}
+	header.5.preBlanks=2
+	//header.5.autonumber=1
+	header.5.prefix = |=> |
+	
+	defaultOutput (
+|
+[###UNRENDERED_CONTENT### ###CType### ]
+|
+	)
+	
+	uploads.header = | ###UPLOADS_HEADER### |
+	
+	images.header = | ###IMAGES_HEADER### |
+	images.linkPrefix = | ###IMAGE_LINK_PREFIX### |
+	images.captionHeader = | ###CAPTION_HEADER### |
+	
+	bulletlist.0.bullet = |*  |
+	bulletlist.1.bullet = |#  |
+	bulletlist.2.bullet = | - |
+	bulletlist.3.bullet = |>  |
+	bulletlist.3.secondRow = |.  |
+	bulletlist.3.blanks = 1
+	
+	menu =< tt_content.menu.20
+	shortcut =< tt_content.shortcut.20
+	shortcut.0.conf.tt_content =< plugin.tx_jhdirectmailplaintext_pi1
+	shortcut.0.tables = tt_content
+	
+	bodytext.doubleLF = {$plugin.tx_jhdirectmailplaintext_pi1.doubleLF}
+	bodytext.link.stdWrap.noTrimWrap = | (###LINK_PREFIX### |) |
+	bodytext.stdWrap.parseFunc.tags {
+		link < styles.content.parseFunc.tags.link
+		typolist = USER
+		typolist.userFunc = tx_jhdirectmailplaintext_pi1->typolist
+		typolist.siteUrl = {$plugin.tx_jhdirectmailplaintext_pi1.siteUrl}
+		typolist.bulletlist =< plugin.tx_jhdirectmailplaintext_pi1.bulletlist
+		typohead = USER
+		typohead.userFunc = tx_jhdirectmailplaintext_pi1->typohead
+		typohead.siteUrl = {$plugin.tx_jhdirectmailplaintext_pi1.siteUrl}
+		typohead.header =< plugin.tx_jhdirectmailplaintext_pi1.header
+		typocode = USER
+		typocode.userFunc = tx_jhdirectmailplaintext_pi1->typocode
+		typocode.siteUrl = {$plugin.tx_jhdirectmailplaintext_pi1.siteUrl}
+	}
+}
+
+temp.linebreak = TEXT
+temp.linebreak.value (
+
+
+)
+
+lib.tx_jhdirectmailplaintext_footer = COA
+lib.tx_jhdirectmailplaintext_footer {
+	10 = TEXT
+	10.value = FOOTER:
+	10.value.strPad {
+		length = 76
+		padWith = -
+		type = both
+	}
+	11 < temp.linebreak
+	20 = TEXT
+	20.value = Unsubscribe link:
+	21 < temp.linebreak
+	30 = TEXT
+	30.value = {$plugin.tx_jhdirectmailplaintext_pi1.siteUrl}?id=3&cmd=edit&aC=###SYS_AUTHCODE###&rU=###USER_uid###
+	30.insertData = 1
+}
+
+tx_jhdirectmailplaintext_pi1 >
+tx_jhdirectmailplaintext_pi1 = PAGE
+tx_jhdirectmailplaintext_pi1 {
+	typeNum = 99
+	config {
+		disableAllHeaderCode = 1
+		additionalHeaders = Content-type:text/plain
+	}
+	10 = TEMPLATE
+	10 {
+		template = FILE
+		template.file = EXT:jh_directmail_plaintext/pi1/plaintext.tmpl
+		marks.CONTENT < styles.content.get
+		marks.CONTENT.renderObj = < plugin.tx_jhdirectmailplaintext_pi1
+		marks.FOOTER =< lib.tx_jhdirectmailplaintext_footer
+	}
+}

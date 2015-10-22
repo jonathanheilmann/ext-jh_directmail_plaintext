@@ -1,0 +1,37 @@
+{
+    "modules": [],
+    "properties": {
+        "backendModules": [],
+        "description": "Advanced plain text rendering for Direct Mail",
+        "emConf": {
+            "category": "templates",
+            "custom_category": "",
+            "dependsOn": "typo3 => 6.2.0-6.2.99\ndirect_mail => 4.0.1\n",
+            "disableLocalization": false,
+            "disableVersioning": false,
+            "sourceLanguage": "en",
+            "state": "alpha",
+            "targetVersion": "6.2",
+            "version": "0.0.1-dev"
+        },
+        "extensionKey": "jh_directmail_plaintext",
+        "name": "Advanced plain text for Direct Mail",
+        "originalExtensionKey": "",
+        "persons": [
+            {
+                "company": "",
+                "email": "mail@jonathan-heilmann.de",
+                "name": "Jonathan Heilmann",
+                "role": "Developer"
+            }
+        ],
+        "plugins": [],
+        "vendorName": "Heilmann"
+    },
+    "wires": [],
+    "log": {
+        "last_modified": "2015-10-10 09:11",
+        "extension_builder_version": "6.2.0",
+        "be_user": "Jonathan Heilmann (1)"
+    }
+}

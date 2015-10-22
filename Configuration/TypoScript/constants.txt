@@ -1,0 +1,26 @@
+##
+## @package TYPO3
+## @subpackage tx_jhdirectmailplaintext_pi1
+##
+
+plugin.tx_jhdirectmailplaintext_pi1 {
+  
+    # cat=plugin.tx_jhdirectmailplaintext_pi1//; type=string; label= Site url: Enter the url of the site here.
+  siteUrl = http://www.example.test/
+  
+    # cat=plugin.tx_jhdirectmailplaintext_pi1/enable/; type=boolean; label= Use flowed format: The same option should be set on the direct mail.
+  flowedFormat = 0
+  
+      # cat=plugin.tx_jhdirectmailplaintext_pi1/enable/; type=boolean; label= Double line feeds: Line feeds found in bodytext will be doubled in the plain text version.
+  doubleLF = 0
+  
+      # cat=plugin.tx_jhdirectmailplaintext_pi1//; type=string; label= Split char to remove from graphical headers: Headers built as GIFBUILDER objects may contain split characters. If specified here, they will be removed from headers of type 5 in the plain text version.
+  removeSplitChar =
+  
+      # cat=plugin.tx_jhdirectmailplaintext_pi1//; type=string; label= Disable CType rendering: Comma seperated list of disabled CTypes in plain text.
+  disableCTypeRendering =
+  
+      # cat=plugin.tx_jhdirectmailplaintext_pi1//; type=boolean; label= Disable image rendering: Images in CType "textpic" won't be rendered.
+  disableImageRendering = 0
+  
+}
